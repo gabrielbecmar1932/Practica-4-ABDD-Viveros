@@ -9,11 +9,10 @@
 |---|---|
 | `practica 4 ABDD.drawio` | Modelo entidad-relación (editable en Draw.io) |
 | `practica 4 ABDD.png` | Modelo entidad-relación en imagen |
-| `modelo-relacional.drawio` | Diseño relacional (editable en Draw.io) |
 | `modelo-relacional.png` | Diseño relacional en imagen |
 | `viveros.sql` | Script de PostgreSQL que crea la base de datos `viveros`, inserta datos y ejecuta ejemplos de `DELETE` |
 | `select-tablas.png` | Salida de un `SELECT` de cada tabla tras las inserciones |
-| `docker-compose.yml` | Contenedor de PostgreSQL 16 para ejecutar el script |
+
 
 ## 1. Modelo entidad-relación
 
@@ -150,21 +149,6 @@ Paso del modelo entidad-relación al relacional:
 - El atributo derivado `bonificacion` no se almacena: se obtiene con la vista `Bonificacion_mensual`.
 
 ## 3. Script SQL
-
-### 3.1 Ejecución
-
-Con el contenedor de este repositorio:
-
-```bash
-docker compose up -d
-docker exec -i pg-viveros psql -U postgres < viveros.sql
-```
-
-Con un PostgreSQL instalado en local:
-
-```bash
-psql -U postgres -f viveros.sql
-```
 
 El script elimina la base de datos `viveros` si existe, la vuelve a crear, construye las tablas, inserta los datos, muestra el contenido de cada tabla y ejecuta los ejemplos de `DELETE`. Debe ejecutarse con `psql` porque usa `\c` para conectarse a la base de datos recién creada.
 
