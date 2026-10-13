@@ -179,6 +179,8 @@ Todas las claves ajenas son `ON UPDATE CASCADE`.
 | un pedido | se eliminan sus líneas | `CASCADE` |
 | un empleado | sus pedidos y su histórico se conservan, sin empleado asociado | `SET NULL` |
 
+**Decisión de diseño sobre los empleados.** Las claves ajenas hacia `Empleado` (en `Pedido` y en `Historico_empleado`) se han definido como `ON DELETE SET NULL` de forma deliberada, para que el script incluya un ejemplo de esta política además de `CASCADE` y `RESTRICT`. Al eliminar un empleado, sus pedidos y su histórico se conservan, pero dejan de indicar a qué empleado correspondían. En un sistema real no se eliminaría al empleado: se le marcaría como dado de baja (por ejemplo, con una columna `fecha_baja`) y las claves ajenas serían `RESTRICT`, de modo que siempre quedara registrado quién gestionó cada pedido y quién ocupó cada puesto.
+
 ### 3.5 Ejemplos de DELETE incluidos
 
 1. Eliminación de una fila concreta de stock.
@@ -199,3 +201,4 @@ Salida de un `SELECT` de cada tabla (y de la vista de bonificaciones) después d
 
 - No se comprueba que la fecha de un pedido sea posterior al ingreso del cliente en *Tajinaste Plus*; la vista de bonificaciones ignora los pedidos anteriores.
 - La productividad de cada destino se introduce como dato; no se calcula a partir de los pedidos.
+- Al eliminar un empleado se pierde la referencia a quién gestionó sus pedidos y quién ocupó sus destinos (`SET NULL`). Es una decisión deliberada para ilustrar esta política; véase el apartado 3.4.
